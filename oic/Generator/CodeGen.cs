@@ -18,8 +18,6 @@ namespace oic.Generator
 
         private string _template;
 
-        private readonly List<string> _loc = new List<string>();
-
         private int _objCount;
 
         #endregion
@@ -133,6 +131,8 @@ namespace oic.Generator
             }
 
             sb.AppendLine();
+
+            // Todo: confirm siblings are generated in correct order, if not reverse through the list
 
             foreach (var child in parent.Objects)
                 AddObject(sb, child);

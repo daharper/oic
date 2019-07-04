@@ -3,7 +3,7 @@
 Introduction
 ============
 
-Prototype of converting Delphi Dfm definitions to code.
+Prototype of converting Delphi Dfm definitions to FMX code.
 
 This simple project is really a proof of concept.
 
