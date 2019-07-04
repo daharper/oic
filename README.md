@@ -29,3 +29,15 @@ If you edit the DFM, click the >> button to generate the code again.
 You can paste DFM snippets directly into the DFM code editor, click the >> button to generate the code.
 
 The log tab gives very basic debugging information.
+
+Tooling
+=======
+
+* .Net Framework 4.7.2
+
+* C# 7.3
+
+* Visual Studio 2019
+
+* WinForms
+
