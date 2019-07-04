@@ -1,0 +1,12 @@
+﻿// Add the function declaration to your form's private section in the interface
+// You may need to add these units to the uses section: FMX.Objects, FMX.Layouts;
+
+function TForm1.Create@name() : @type;
+var
+@vars
+begin
+@objects
+@assignments
+
+	Result := @result;
+end;
