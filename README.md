@@ -1,4 +1,4 @@
-# oic
+# oic - Objects Into Code
 
 Introduction
 ============
