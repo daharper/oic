@@ -11,6 +11,8 @@ namespace oic.Parser
             Content = token.Text;
         }
 
+        public DfmValue(string value) => Content = value;
+
         public static implicit operator string(DfmValue value) => value?.Content ?? string.Empty;
 
         public static implicit operator DfmValue(string value) => new DfmValue(value);

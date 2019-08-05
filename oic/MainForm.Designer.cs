@@ -32,6 +32,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.DfmPanel = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.ExmpleThreeButton = new System.Windows.Forms.Button();
             this.ExampleTwoButton = new System.Windows.Forms.Button();
             this.ExampleOneButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -42,7 +43,7 @@
             this.CodePanel = new System.Windows.Forms.Panel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.LogTextBox = new System.Windows.Forms.TextBox();
-            this.ExmpleThreeButton = new System.Windows.Forms.Button();
+            this.ExampleFourButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -70,6 +71,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.ExampleFourButton);
             this.panel2.Controls.Add(this.ExmpleThreeButton);
             this.panel2.Controls.Add(this.ExampleTwoButton);
             this.panel2.Controls.Add(this.ExampleOneButton);
@@ -81,9 +83,20 @@
             this.panel2.Size = new System.Drawing.Size(644, 25);
             this.panel2.TabIndex = 0;
             // 
+            // ExmpleThreeButton
+            // 
+            this.ExmpleThreeButton.Location = new System.Drawing.Point(152, 2);
+            this.ExmpleThreeButton.Name = "ExmpleThreeButton";
+            this.ExmpleThreeButton.Size = new System.Drawing.Size(26, 21);
+            this.ExmpleThreeButton.TabIndex = 4;
+            this.ExmpleThreeButton.Tag = "3";
+            this.ExmpleThreeButton.Text = "3";
+            this.ExmpleThreeButton.UseVisualStyleBackColor = true;
+            this.ExmpleThreeButton.Click += new System.EventHandler(this.ExampleButton_Click);
+            // 
             // ExampleTwoButton
             // 
-            this.ExampleTwoButton.Location = new System.Drawing.Point(122, 3);
+            this.ExampleTwoButton.Location = new System.Drawing.Point(122, 2);
             this.ExampleTwoButton.Name = "ExampleTwoButton";
             this.ExampleTwoButton.Size = new System.Drawing.Size(26, 21);
             this.ExampleTwoButton.TabIndex = 3;
@@ -94,7 +107,7 @@
             // 
             // ExampleOneButton
             // 
-            this.ExampleOneButton.Location = new System.Drawing.Point(91, 3);
+            this.ExampleOneButton.Location = new System.Drawing.Point(91, 2);
             this.ExampleOneButton.Name = "ExampleOneButton";
             this.ExampleOneButton.Size = new System.Drawing.Size(26, 21);
             this.ExampleOneButton.TabIndex = 2;
@@ -185,16 +198,16 @@
             this.LogTextBox.Size = new System.Drawing.Size(800, 967);
             this.LogTextBox.TabIndex = 0;
             // 
-            // ExmpleThreeButton
+            // ExampleFourButton
             // 
-            this.ExmpleThreeButton.Location = new System.Drawing.Point(154, 3);
-            this.ExmpleThreeButton.Name = "ExmpleThreeButton";
-            this.ExmpleThreeButton.Size = new System.Drawing.Size(26, 21);
-            this.ExmpleThreeButton.TabIndex = 4;
-            this.ExmpleThreeButton.Tag = "3";
-            this.ExmpleThreeButton.Text = "3";
-            this.ExmpleThreeButton.UseVisualStyleBackColor = true;
-            this.ExmpleThreeButton.Click += new System.EventHandler(this.ExampleButton_Click);
+            this.ExampleFourButton.Location = new System.Drawing.Point(183, 2);
+            this.ExampleFourButton.Name = "ExampleFourButton";
+            this.ExampleFourButton.Size = new System.Drawing.Size(26, 21);
+            this.ExampleFourButton.TabIndex = 5;
+            this.ExampleFourButton.Tag = "4";
+            this.ExampleFourButton.Text = "4";
+            this.ExampleFourButton.UseVisualStyleBackColor = true;
+            this.ExampleFourButton.Click += new System.EventHandler(this.ExampleButton_Click);
             // 
             // MainForm
             // 
@@ -239,6 +252,7 @@
         private System.Windows.Forms.TextBox LogTextBox;
         private System.Windows.Forms.Button ExampleTwoButton;
         private System.Windows.Forms.Button ExmpleThreeButton;
+        private System.Windows.Forms.Button ExampleFourButton;
     }
 }
 

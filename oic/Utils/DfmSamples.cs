@@ -1,6 +1,4 @@
-﻿using System.Runtime.Remoting.Messaging;
-
-namespace oic.Utils
+﻿namespace oic.Utils
 {
     public static class DfmSamples
     {
@@ -10,6 +8,7 @@ namespace oic.Utils
             {
                 case 2: return SampleTwo();
                 case 3: return SampleThree();
+                case 4: return SampleFour();
                 default: return SampleOne();
             }
         }
@@ -660,6 +659,41 @@ object Rectangle8: TRectangle
         end
       end
     end
+  end
+end".Trim();
+        }
+
+        private static string SampleFour()
+        {
+            return @"
+object layout: TLayout
+  Align = Top
+  HitTest = True
+  Size.Width = 250.000000000000000000
+  Size.Height = 50.000000000000000000
+  Size.PlatformDefault = False
+  TabOrder = 0
+  OnClick = layoutClick
+  object img: TGlyph
+    Position.X = 7.000000000000000000
+    Position.Y = 9.000000000000000000
+    Size.Width = 32.000000000000000000
+    Size.Height = 32.000000000000000000
+    Size.PlatformDefault = False
+    ImageIndex = 0
+    Images = ImageList1
+  end
+  object lbl: TLabel
+    StyledSettings = [Family, Style]
+    Position.X = 53.000000000000000000
+    Position.Y = 9.000000000000000000
+    Size.Width = 189.000000000000000000
+    Size.Height = 32.000000000000000000
+    Size.PlatformDefault = False
+    TextSettings.Font.Size = 16.000000000000000000
+    TextSettings.FontColor = claWhite
+    Text = 'Toggle Menu'
+    TabOrder = 1
   end
 end".Trim();
         }

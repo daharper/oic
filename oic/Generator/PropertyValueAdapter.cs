@@ -29,6 +29,9 @@ namespace oic.Generator
             if (name.EndsWith("devices"))
                 return Devices(property);
 
+            if (name.EndsWith("styledsettings"))
+                return StyledSettings(property);
+
             return property.Value;
         }
 
@@ -55,6 +58,22 @@ namespace oic.Generator
 
             foreach (var value in property.Values)
                 sb.Append($"TAnchorKind.{value.Content}, ");
+
+            sb.Length -= 2;
+            sb.Append("]");
+
+            return sb.ToString();
+        }
+
+        private static string StyledSettings(DfmProperty property)
+        {
+            Guard.Ensure.IsTrue(property.HasValues, "StyledSettings property has no value error.");
+
+            var sb = new StringBuilder();
+            sb.Append("[");
+
+            foreach (var value in property.Values)
+                sb.Append($"TStyledSetting.{value.Content}, ");
 
             sb.Length -= 2;
             sb.Append("]");

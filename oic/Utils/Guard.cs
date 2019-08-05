@@ -9,8 +9,8 @@ namespace oic.Utils
 
         public Guard NotNull(object obj, string objName = "", [CallerMemberName] string memberName = "")
         {
-            if (ReferenceEquals(null, obj)) 
-                throw new ArgumentNullException(objName, $"Required value missing error in {memberName}");
+            if (ReferenceEquals(null, obj))
+                Raise(new ArgumentNullException(objName, $"Required value missing error in {memberName}"));
 
             return this;
         }
@@ -18,7 +18,7 @@ namespace oic.Utils
         public Guard HasValue(string value, string name, [CallerMemberName] string memberName = "")
         {
             if (string.IsNullOrEmpty(value))
-                throw new ArgumentNullException(name, $"Required value missing error in {memberName}");
+                Raise(new ArgumentNullException(name, $"Required value missing error in {memberName}"));
 
             return this;
         }
@@ -26,10 +26,26 @@ namespace oic.Utils
         public Guard IsTrue(bool condition, string message = "", [CallerMemberName] string memberName = "")
         {
             if (!condition)
-                throw new ArgumentException($"Failed condition in {memberName}");
+            {
+                if (!string.IsNullOrEmpty(message))
+                {
+                    message = $"Failed condition in {memberName}" + Environment.NewLine + message;
+                }
+
+                Raise(new ArgumentException(message));
+            }
 
             return this;
         }
 
+        private static void Raise(Exception e)
+        {
+            Logger.NewLine();
+            Logger.WriteLn("*****************************************************************");
+            Logger.WriteLn($"Error: {e.Message}");
+            Logger.WriteLn("*****************************************************************");
+            Logger.NewLine();
+            throw e;
+        }
     }
 }

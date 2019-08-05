@@ -10,7 +10,7 @@ namespace oic.Lexer
     /// Very simple class to read a Dfm text representation of an object and generate
     /// tokens. Currently there is only one operator. 
     /// </summary>
-    public static class Tokenizer
+    public class Tokenizer
     {
         #region private
 
@@ -20,14 +20,18 @@ namespace oic.Lexer
         private const char Eol = '\n';
         private const char EqualsOperator = '=';
 
+        private int _lineNumber = 1;
+
         #endregion
 
-        public static List<Token> Execute(string text)
+        public static List<Token> Execute(string text) => new Tokenizer().Run(text);
+
+        public List<Token> Run(string text)
         {
             var tokens = new List<Token>();
             var sb = new StringBuilder();
             var inQuotes = false;
-
+            
             Logger.WriteLn("Tokenizer executing on:" + Environment.NewLine);
             Logger.WriteLn(text + Environment.NewLine);
 
@@ -42,7 +46,7 @@ namespace oic.Lexer
                     if (ch == ClosingQuote)
                     {
                         inQuotes = false;
-                        tokens.Add(new Literal(sb.ToString()));
+                        tokens.Add(new Literal(sb.ToString(), _lineNumber));
                         sb.Length = 0;
                     }
                     continue;
@@ -52,7 +56,10 @@ namespace oic.Lexer
 
                 if (ch == OpeningQuote)
                 {
-                    Guard.Ensure.IsTrue(sb.Length == 0, "expected buffer to be empty before literal begins.");
+                    Guard.Ensure.IsTrue(
+                        sb.Length == 0, 
+                        $"Line {_lineNumber}: expected empty buffer before new literal.");
+
                     sb.Append(ch);
                     inQuotes = true;
                     continue;
@@ -60,9 +67,11 @@ namespace oic.Lexer
 
                 if (ch == Eol)
                 {
+                    ++_lineNumber;
+
                     if (sb.Length > 0)
                     {
-                        tokens.Add(Create(sb.ToString()));
+                        tokens.Add(CreateToken(sb.ToString(), _lineNumber));
                         sb.Length = 0;
                     }
                     continue;
@@ -76,7 +85,7 @@ namespace oic.Lexer
 
                     if (Operator.IsOperator(value))
                     {
-                        tokens.Add(new Operator(value));
+                        tokens.Add(new Operator(value, _lineNumber));
                         sb.Length = 0;
                         continue;
                     }
@@ -84,8 +93,8 @@ namespace oic.Lexer
                     var (nextIndex, cn) = SkipWhitespace(i, text);
 
                     var token = cn == EqualsOperator
-                        ? new Identifier(value)
-                        : Create(value);
+                        ? new Identifier(value, _lineNumber)
+                        : CreateToken(value, _lineNumber);
 
                     tokens.Add(token);
 
@@ -98,7 +107,7 @@ namespace oic.Lexer
             }
 
             if (sb.Length > 0)
-                tokens.Add(Create(sb.ToString()));
+                tokens.Add(CreateToken(sb.ToString(), _lineNumber));
 
             Logger.WriteLn($"Identified {tokens.Count} tokens:{Environment.NewLine}");
 
@@ -112,20 +121,21 @@ namespace oic.Lexer
 
         #region private methods
 
-        private static Token Create(string text)
+        private Token CreateToken(string text, int lineNumber)
         {
             if (Keyword.IsKeyword(text))
-                return new Keyword(text);
+                return new Keyword(text, lineNumber);
 
-            return new Literal(text);
+            return new Literal(text, lineNumber);
         }
 
-        private static (int newIndex, char nextCh) SkipWhitespace(int currentIndex, string text)
+        private (int newIndex, char nextCh) SkipWhitespace(int currentIndex, string text)
         {
             for (var i = currentIndex + 1; i < text.Length; ++i)
             {
                 var ch = text[i];
                 if (!char.IsWhiteSpace(ch)) return (i, ch);
+                if (ch == Eol) ++_lineNumber;
             }
 
             return (text.Length, ' ');

@@ -26,16 +26,16 @@ namespace oic.Parser
             {
                 var token = queue.Dequeue();
 
-                if (token is Keyword)
+                if (token is Keyword kw)
                 {
-                    if (token.Text == "object")
+                    if (kw.IntroducesAnObject)
                     {
                         var name = queue.Dequeue();
                         var type = queue.Dequeue();
 
                         Guard.Ensure
-                            .IsTrue(name is Literal)
-                            .IsTrue(type is Literal);
+                            .IsTrue(name is Literal, $"Line {name.LineNumber}: expected a literal.")
+                            .IsTrue(type is Literal, $"Line {name.LineNumber}: expected a literal.");
 
                         obj = new DfmObject(name, type);
                         ++objCount;
@@ -46,10 +46,10 @@ namespace oic.Parser
                         stack.Push(obj);
                     }
 
-                    if (token.Text == "end")
+                    if (kw.IsEnd)
                     {
-                        if (stack.Count > 0)
-                            obj = stack.Pop();
+                        Guard.Ensure.IsTrue(stack.Count > 0, "Unexpected end statement");
+                        obj = stack.Pop();
                     }
 
                     property = null;

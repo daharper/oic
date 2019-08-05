@@ -1,0 +1,67 @@
+﻿The coding conventions of the .Dfm file are as follows:
+
+* for simple types (Integer, Boolean, String, ), the value is simply saved after "="
+
+	Left = 192
+
+* for sets, the values are stored between "[" and "]"
+
+	 Options = [dgTitles, dgIndicator, dgColumnResize]
+
+* for tStrings and tList, the values are between "(" and ")":
+
+	Items.Strings = (
+      'Felix COLIBRI Delphi Training Sessions:'
+      '    +  UML and Design Patterns'
+      '    +  Interbase Applications'
+      '    +  Object Oriented Programming'
+      '    +  Client Server Database')
+
+* for binary values (bitmaps for glyphs etc), the hexadecimal content is saved between "{" and "}"
+
+	Picture.Data = {
+      07544269746D617036550000424D365500000000000036000000280000005500
+      000055000000010018000000000000550000C40E0000C40E0000000000000000
+      ... 
+      FF16}
+
+* for collections, the delimiters are "<" and ">", with each item in between. And for each item,
+	between the item name and "end", we have the property name and value:
+
+	Columns = <
+      item
+        Expanded = False
+        Visible = True
+      end
+      item
+        Expanded = False
+        Visible = True
+      end>
+
+* for sub properties (like Font), the property name is composed with the property name and the sub-property name:
+
+	object Form1: TForm1
+	  ...
+	  Font.Charset = DEFAULT_CHARSET
+	  Font.Color = clWindowText
+	  Font.Height = -11
+	  Font.Name = 'MS Sans Serif'
+	  Font.Style = []
+	  ...
+	end
+
+* components dropped on a container are nested within the container definition:
+
+	object Form1: TForm1
+	  ...
+	  object Panel1: TPanel
+		...
+		object CheckBox1: TCheckBox
+		  Left = 8
+		  ...
+		end
+	  end
+	  ...
+	end
+
+
